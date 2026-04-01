@@ -1,0 +1,45 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Group {
+  id        String        @id @default(cuid())
+  name      String
+  createdAt DateTime      @default(now())
+  members   GroupMember[]
+  expenses  Expense[]
+}
+
+model GroupMember {
+  id      String @id @default(cuid())
+  name    String
+  group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId String
+}
+
+model Expense {
+  id          String         @id @default(cuid())
+  description String
+  amount      Float
+  paidBy      String
+  date        DateTime       @default(now())
+  closed      Boolean        @default(false)
+  createdAt   DateTime       @default(now())
+  group       Group          @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId     String
+  splits      ExpenseSplit[]
+}
+
+model ExpenseSplit {
+  id         String  @id @default(cuid())
+  memberName String
+  expense    Expense @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+  expenseId  String
+}
