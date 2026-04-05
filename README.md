@@ -1,6 +1,6 @@
 # Split Tracker
 
-A modern expense splitting app for groups — track shared expenses and calculate who owes whom with minimal transactions.
+A modern expense splitting app for groups - track shared expenses and calculate who owes whom with minimal transactions.
 
 ## Features
 
@@ -23,6 +23,9 @@ A modern expense splitting app for groups — track shared expenses and calculat
 | ORM | Prisma |
 | Container | Docker |
 | CI/CD | GitHub Actions |
+| Orchestration | Kubernetes (k3s + Rancher) |
+| IaC | OpenTofu (AWS) |
+| Monitoring | Prometheus + Grafana |
 
 ## Settlement Algorithm
 
@@ -36,8 +39,7 @@ Uses a greedy minimum-transactions algorithm:
 This project demonstrates a complete DevOps lifecycle:
 
 - **Containerisation** — Docker multi-stage build
-- **CI/CD** — GitHub Actions (coming soon)
-- **Orchestration** — Kubernetes with k3s + Rancher (coming soon)
-- **IaC** — OpenTofu for Azure infrastructure (coming soon)
-- **Monitoring** — Prometheus + Grafana (coming soon)
-- **Logging** — ELK Stack (coming soon)
+- **CI/CD** — GitHub Actions
+- **Orchestration** — Kubernetes with k3s + Rancher
+- **IaC** — OpenTofu for Azure infrastructure
+- **Monitoring** — Prometheus + Grafana
