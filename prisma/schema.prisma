@@ -1,27 +1,31 @@
-// This is your Prisma schema file
-
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
+  schemas  = ["split_tracker"]
 }
 
 model Group {
   id        String        @id @default(cuid())
   name      String
   createdAt DateTime      @default(now())
-  members   GroupMember[]
   expenses  Expense[]
+  members   GroupMember[]
+
+  @@schema("split_tracker")
 }
 
 model GroupMember {
   id      String @id @default(cuid())
   name    String
-  group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
   groupId String
+  group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@schema("split_tracker")
 }
 
 model Expense {
@@ -32,14 +36,18 @@ model Expense {
   date        DateTime       @default(now())
   closed      Boolean        @default(false)
   createdAt   DateTime       @default(now())
-  group       Group          @relation(fields: [groupId], references: [id], onDelete: Cascade)
   groupId     String
+  group       Group          @relation(fields: [groupId], references: [id], onDelete: Cascade)
   splits      ExpenseSplit[]
+
+  @@schema("split_tracker")
 }
 
 model ExpenseSplit {
   id         String  @id @default(cuid())
   memberName String
-  expense    Expense @relation(fields: [expenseId], references: [id], onDelete: Cascade)
   expenseId  String
+  expense    Expense @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+
+  @@schema("split_tracker")
 }
